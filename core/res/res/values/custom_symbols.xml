@@ -285,4 +285,6 @@
   <java-symbol type="string" name="url_copy_success" />
   <java-symbol type="string" name="url_copy_failed" />
 
+  <java-symbol type="integer" name="config_flashlightProximityTimeout" />
+
 </resources>

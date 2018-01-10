@@ -197,4 +197,6 @@
     <!-- Ambient display music ticker -->
     <bool name="config_canForceDozeNotifications">true</bool>
 
+    <integer name="config_flashlightProximityTimeout">300</integer>
+
 </resources>
