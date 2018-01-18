@@ -277,4 +277,7 @@
   <!-- Default value for led color when fast charging is active -->
   <java-symbol type="integer" name="config_notificationsFastBatteryARGB" />
 
+  <!-- Ambient display music ticker -->
+  <java-symbol type="bool" name="config_canForceDozeNotifications" />
+
 </resources>
