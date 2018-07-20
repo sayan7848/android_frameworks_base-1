@@ -10593,6 +10593,12 @@ public final class Settings {
         public static final String LOCKSCREEN_VISUALIZER_ENABLED = "lockscreen_visualizer_enabled";
 
         /**
+         * Ambient Display Visualizer
+         * @hide
+         */
+        public static final String AMBIENT_VISUALIZER_ENABLED = "ambient_visualizer";
+
+        /**
          * Force authorize Substratum (or equivalent) frontend calling packages by ThemeInterfacer
          * The value is boolean (1 or 0).
          * @hide
