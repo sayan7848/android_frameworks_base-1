@@ -169,7 +169,6 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
                 mLastInfo = mInfoToSet;
             }
         }
-        mText.setText(mInfoToSet);
         mAmbientIndication.setVisibility(mKeyguard && (mInfoAvailable || mNpInfoAvailable) ? View.VISIBLE : View.INVISIBLE);
         mIcon.setAnimation(R.raw.ambient_music_note);
         mIcon.playAnimation();
