@@ -6143,6 +6143,11 @@ public final class Settings {
         private static final Validator VOLUME_PANEL_ON_LEFT_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * @hide
+         */
+        public static final String UI_STYLE = "ui_style";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -6405,8 +6410,8 @@ public final class Settings {
             PRIVATE_SETTINGS.add(VOLUME_KEYS_CONTROL_RING_TONE);
 	        PRIVATE_SETTINGS.add(WEATHER_LOCKSCREEN_UNIT);
             PRIVATE_SETTINGS.add(THEMING_SETTINGS_DASHBOARD_ICONS);
-            PRIVATE_SETTINGS.add(VOLUME_PANEL_ON_LEFT);
-	    }
+            PRIVATE_SETTINGS.add(UI_STYLE);
+        }
 
         /**
          * Whether to display the torch option in the power menu
