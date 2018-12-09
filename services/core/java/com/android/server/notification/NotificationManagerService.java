@@ -4885,7 +4885,6 @@ public class NotificationManagerService extends SystemService {
                     }
                     if (DBG) Slog.v(TAG, "Interrupting!");
                     if (hasValidSound) {
-                        mSoundNotificationKey = key;
                         if (mInCall) {
                             playInCallNotification();
                             if (mInCallNotificationsVibrate) {
@@ -4896,15 +4895,19 @@ public class NotificationManagerService extends SystemService {
                         } else {
                             beep = playSound(record, soundUri);
                         }
+                        if(beep) {
+                            mSoundNotificationKey = key;
+                        }
                     }
 
                     final boolean ringerModeSilent =
                             mAudioManager.getRingerModeInternal()
                                     == AudioManager.RINGER_MODE_SILENT;
                     if (!mInCall && hasValidVibrate && !ringerModeSilent) {
-                        mVibrateNotificationKey = key;
-
                         buzz = playVibration(record, vibration, hasValidSound);
+                        if(buzz) {
+                            mVibrateNotificationKey = key;
+                        }
                     }
                 }
             }
