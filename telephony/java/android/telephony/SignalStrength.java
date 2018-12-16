@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.telephony.CarrierConfigManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.content.res.Resources;
 
