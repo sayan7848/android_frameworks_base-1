@@ -186,10 +186,6 @@
   <java-symbol type="id" name="pocket_hint_image" /> 
   <java-symbol type="id" name="pocket_hint_message" /> 
 
-  <!-- From SignalStrength -->
-  <java-symbol type="integer" name="config_LTE_antenna_bar_quantity_metric" />
-  <java-symbol type="integer" name="config_LTE_RSRP_threshold_type" />
-
   <!-- display for radio tech -->
   <java-symbol type="bool" name="config_display_rat" />
   <!-- config 2G/3G/4G RAT strings for carriers -->
