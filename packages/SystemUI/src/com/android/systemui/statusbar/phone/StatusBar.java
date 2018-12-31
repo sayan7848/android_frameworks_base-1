@@ -5764,16 +5764,16 @@ public class StatusBar extends SystemUI implements DemoMode,
                 UserHandle.USER_CURRENT) != 0;
         if (isAmbientContainerAvailable()) {
             ((AmbientIndicationContainer)mAmbientIndicationContainer).setIndication(
-                    mMediaManager.getMediaMetadata(), null);
+                    mMediaManager.getMediaMetadata(), null, false);
         }
     }
 
-    public void setAmbientMusicInfo(MediaMetadata mediaMetadata, String notificationText) {
+    public void setAmbientMusicInfo(MediaMetadata mediaMetadata, String notificationText, boolean nowPlaying) {
         if (isAmbientContainerAvailable()) {
             ((AmbientIndicationContainer)mAmbientIndicationContainer).setIndication(
-                    mediaMetadata, notificationText);
+                    mediaMetadata, notificationText, nowPlaying);
         }
-    }
+    };
 
     private boolean isAmbientContainerAvailable() {
         return mAmbientMediaPlaying && mAmbientIndicationContainer != null;
