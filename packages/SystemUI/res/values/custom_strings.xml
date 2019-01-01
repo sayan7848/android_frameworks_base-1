@@ -404,4 +404,7 @@
     <!--Google sound search tile -->
     <string name="quick_settings_sound_search">Sound Search</string>
 
+    <!-- Ambient Display Pixel-Like string -->
+    <string name="ambientmusic_songinfo">%s by %s</string>
+
 </resources>
