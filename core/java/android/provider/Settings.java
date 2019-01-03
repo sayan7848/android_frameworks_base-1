@@ -6175,14 +6175,6 @@ public final class Settings {
         /**
          * @hide
          */
-        public static final String VOLUME_PANEL_ON_LEFT = "volume_panel_on_left";
-
-        /** @hide */
-        private static final Validator VOLUME_PANEL_ON_LEFT_VALIDATOR = BOOLEAN_VALIDATOR;
-
-        /**
-         * @hide
-         */
         public static final String UI_STYLE = "ui_style";
 
         /**
@@ -6312,7 +6304,6 @@ public final class Settings {
             BOTTOM_GESTURE_TRIGGER_TIMEOUT,
             BOTTOM_GESTURE_SWIPE_LIMIT,
             THEMING_SETTINGS_DASHBOARD_ICONS,
-            VOLUME_PANEL_ON_LEFT,
             FAST_BATTERY_LIGHT_COLOR,
             FAST_CHARGING_LED_ENABLED,
             BATTERY_LIGHT_ONLY_FULLY_CHARGED,
@@ -6630,7 +6621,6 @@ public final class Settings {
             VALIDATORS.put(BOTTOM_GESTURE_TRIGGER_TIMEOUT, BOTTOM_GESTURE_TRIGGER_TIMEOUT_VALIDATOR);
             VALIDATORS.put(BOTTOM_GESTURE_SWIPE_LIMIT, BOTTOM_GESTURE_SWIPE_LIMIT_VALIDATOR);
             VALIDATORS.put(THEMING_SETTINGS_DASHBOARD_ICONS, THEMING_SETTINGS_DASHBOARD_ICONS_VALIDATOR);
-	        VALIDATORS.put(VOLUME_PANEL_ON_LEFT, VOLUME_PANEL_ON_LEFT_VALIDATOR);
             VALIDATORS.put(FAST_BATTERY_LIGHT_COLOR, FAST_BATTERY_LIGHT_COLOR_VALIDATOR);
             VALIDATORS.put(FAST_CHARGING_LED_ENABLED, FAST_CHARGING_LED_ENABLED_VALIDATOR);
             VALIDATORS.put(BATTERY_LIGHT_ONLY_FULLY_CHARGED, BATTERY_LIGHT_ONLY_FULLY_CHARGED_VALIDATOR);
