@@ -195,7 +195,6 @@ public class KeyguardStatusView extends GridLayout implements
 
         mClockView = findViewById(R.id.clock_view);
         mClockView.setShowCurrentUserTime(true);
-        mAnalogClockView = findViewById(R.id.analog_clock_view);
         mCustomClockView = findViewById(R.id.custom_clock_view);
         mDuClockView = findViewById(R.id.du_clock_view);
         mOwnerInfo = findViewById(R.id.owner_info);
@@ -247,14 +246,14 @@ public class KeyguardStatusView extends GridLayout implements
         RelativeLayout.LayoutParams customlayoutParams =
                 (RelativeLayout.LayoutParams) mCustomClockView.getLayoutParams();
         customlayoutParams.bottomMargin = getResources().getDimensionPixelSize(
-                R.dimen.bottom_text_spacing_digital);
+                R.dimen.keyguard_security_view_top_margin);
         mCustomClockView.setLayoutParams(customlayoutParams);
 
         // Du analog clock
         RelativeLayout.LayoutParams dulayoutParams =
                 (RelativeLayout.LayoutParams) mDuClockView.getLayoutParams();
         dulayoutParams.bottomMargin = getResources().getDimensionPixelSize(
-                R.dimen.bottom_text_spacing_digital);
+                R.dimen.keyguard_security_view_top_margin);
         mDuClockView.setLayoutParams(dulayoutParams);
 
         layoutParams = (RelativeLayout.LayoutParams) mClockSeparator.getLayoutParams();
