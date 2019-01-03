@@ -84,24 +84,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private View mCustomCarrierLabel;
     private int mShowCarrierLabel;
 
-    private class LiquidSettingsObserver extends ContentObserver {
-        LiquidSettingsObserver(Handler handler) {
-            super(handler);
-        }
-
-        void observe() {
-            getContext().getContentResolver().registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.STATUS_BAR_LOGO),
-                    false, this, UserHandle.USER_ALL);
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            updateLogoSettings(true);
-        }
-    }
-    private LiquidSettingsObserver mLiquidSettingsObserver = new LiquidSettingsObserver(mHandler);
-
     private int mTickerEnabled;
     private View mTickerViewFromStub;
 
@@ -130,6 +112,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
             updateSettings(true);
         }
     }
+
     private SettingsObserver mSettingsObserver = new SettingsObserver(mHandler);
     private ContentResolver mContentResolver;
 
@@ -174,7 +157,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         Dependency.get(DarkIconDispatcher.class).addDarkReceiver(mLiquidLogo);
         mCustomCarrierLabel = mStatusBar.findViewById(R.id.statusbar_carrier_text);
         updateSettings(false);
-        updateLogoSettings(false);
         showSystemIconArea(false);
         initEmergencyCryptkeeperText();
         initOperatorName();
@@ -202,10 +184,10 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     public void onDestroyView() {
         super.onDestroyView();
         Dependency.get(StatusBarIconController.class).removeIconGroup(mDarkIconManager);
-        Dependency.get(DarkIconDispatcher.class).removeDarkReceiver(mLiquidLogo);
         if (mNetworkController.hasEmergencyCryptKeeperText()) {
             mNetworkController.removeCallback(mSignalCallback);
         }
+        Dependency.get(DarkIconDispatcher.class).removeDarkReceiver(mLiquidLogo);
     }
 
     public void initNotificationIconArea(NotificationIconAreaController
@@ -297,6 +279,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     public void hideNotificationIconArea(boolean animate) {
         animateHide(mNotificationIconAreaInner, animate, true);
+        if (mShowLogo) {
+            animateHide(mLiquidLogo, animate, true);
+        }
         animateHide(mCenterClockLayout, animate, true);
     }
 
@@ -404,13 +389,15 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     public void updateSettings(boolean animate) {
         mClockStyle = Settings.System.getIntForUser(mContentResolver,
-                Settings.System.STATUSBAR_CLOCK_STYLE, 0, UserHandle.USER_CURRENT);
+                Settings.System.STATUSBAR_CLOCK_STYLE, 0,
+                UserHandle.USER_CURRENT);
         mShowCarrierLabel = Settings.System.getIntForUser(mContentResolver,
                 Settings.System.STATUS_BAR_SHOW_CARRIER, 1,
                 UserHandle.USER_CURRENT);
         mTickerEnabled = Settings.System.getIntForUser(mContentResolver,
                 Settings.System.STATUS_BAR_SHOW_TICKER, 0,
                 UserHandle.USER_CURRENT);
+        updateLogoSettings(animate);
         updateClockStyle(animate);
         setCarrierLabel(animate);
         initTickerView();
@@ -433,22 +420,17 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     }
 
     public void updateLogoSettings(boolean animate) {
-        try {
-            mShowLogo = Settings.System.getIntForUser(
-                getContext().getContentResolver(), Settings.System.STATUS_BAR_LOGO, 0,
-                UserHandle.USER_CURRENT) == 1;
-            if (mNotificationIconAreaInner != null) {
-                if (mShowLogo) {
-                    if (mNotificationIconAreaInner.getVisibility() == View.VISIBLE) {
-                        animateShow(mLiquidLogo, animate);
-                    }
-                } else {
-                    animateHide(mLiquidLogo, animate);
+        mShowLogo = Settings.System.getIntForUser(
+            getContext().getContentResolver(), Settings.System.STATUS_BAR_LOGO, 0,
+            UserHandle.USER_CURRENT) == 1;
+        if (mNotificationIconAreaInner != null) {
+            if (mShowLogo) {
+                if (mNotificationIconAreaInner.getVisibility() == View.VISIBLE) {
+                    animateShow(mLiquidLogo, animate);
                 }
+            } else {
+                animateHide(mLiquidLogo, animate, false);
             }
-        } catch (Exception e) {
-            // never ever crash here
-            Slog.e(TAG, "updateLogoSettings(animate)", e);
         }
     }
 
