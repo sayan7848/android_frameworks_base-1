@@ -85,8 +85,9 @@ class GlobalScreenrecord {
     private static final int MSG_TASK_ENDED = 1;
     private static final int MSG_TASK_ERROR = 2;
 
-    private static final String TMP_PATH = Environment.getExternalStorageDirectory()
-            + File.separator + "__tmp_screenrecord.mp4";
+    private static final String TMP_FOLDER = Environment.getExternalStorageDirectory()
+            + File.separator + ".screenrec_tmp";
+    private static final String TMP_PATH = TMP_FOLDER;
 
     private static final String SCREENRECORD_SHARE_SUBJECT_TEMPLATE = "Screenrecord (%s)";
     private static final String SCREENRECORD_URI_ID = "android:screenrecord_uri_id";
@@ -124,6 +125,9 @@ class GlobalScreenrecord {
         }
 
         public void run() {
+            File directory = new File(String.valueOf(TMP_FOLDER));
+            if(!directory.exists()) directory.mkdir();
+
             Runtime rt = Runtime.getRuntime();
 
             // additional arguments to pass to screenrecord bin
@@ -430,9 +434,7 @@ class GlobalScreenrecord {
 
             // Make it appear in gallery, run MediaScanner
             // also make sure to tell media scanner that the tmp file got deleted
-            MediaScannerConnectionClient client =
-                    new MediaScanner(mContext);
-            ((MediaScanner)client).connectAndScan(input.getAbsolutePath(), null);
+            MediaScannerConnectionClient client = new MediaScanner(mContext);
             ((MediaScanner)client).connectAndScan(output.getAbsolutePath(), date);
         } }, 2000);
     }
