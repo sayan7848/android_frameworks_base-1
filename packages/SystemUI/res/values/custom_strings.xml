@@ -411,4 +411,7 @@
     <!-- App Picker Tile -->
     <string name="quick_settings_apppicker">App Picker</string>
 
+    <string name="tuner_keyguard_battery_percent_title">Show battery percent</string>
+    <string name="tuner_keyguard_battery_percent_summary">Force show battery percent in status bar on charging</string>
+
 </resources>
