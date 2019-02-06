@@ -587,12 +587,6 @@ public class ActivityManagerService extends IActivityManager.Stub
     // How long we wait for provider to be notify before we decide it may be hang.
     static final int CONTENT_PROVIDER_WAIT_TIMEOUT = 20*1000;
 
-    /**
-     * How long we wait for an provider to be published. Should be longer than
-     * {@link #CONTENT_PROVIDER_PUBLISH_TIMEOUT}.
-     */
-    static final int CONTENT_PROVIDER_WAIT_TIMEOUT = 20 * 1000;
-
     // How long we wait for a launched process to attach to the activity manager
     // before we decide it's never going to come up for real, when the process was
     // started with a wrapper for instrumentation (such as Valgrind) because it
@@ -4459,7 +4453,7 @@ public class ActivityManagerService extends IActivityManager.Stub
                 runtimeFlags |= policyBits;
             }
 
-			// Check if zygote should refresh its fonts
+            // Check if zygote should refresh its fonts
             boolean refreshTheme = false;
             if (SystemProperties.getBoolean(PROP_REFRESH_THEME, false)) {
                 SystemProperties.set(PROP_REFRESH_THEME, "false");
@@ -6100,18 +6094,6 @@ public class ActivityManagerService extends IActivityManager.Stub
             mWindowManager.continueSurfaceLayout();
         }
 
-        // Hack for pi
-        // When an app process is removed, activities from the process may be relaunched. In the
-        // case of forceStopPackageLocked the activities are finished before any window is drawn,
-        // and the launch time is not cleared. This will be incorrectly used to calculate launch
-        // time for the next launched activity launched in the same windowing mode.
-        if (clearLaunchStartTime) {
-            final LaunchTimeTracker.Entry entry = mStackSupervisor
-                    .getLaunchTimeTracker().getEntry(mStackSupervisor.getWindowingMode());
-            if (entry != null) {
-                entry.mLaunchStartTime = 0;
-            }
-        }
     }
 
     private final int getLRURecordIndexForAppLocked(IApplicationThread thread) {
@@ -12786,7 +12768,15 @@ public class ActivityManagerService extends IActivityManager.Stub
                             + ", not send CONTENT_PROVIDER_WAIT_TIMEOUT_MSG again");
                     }
 
-                    cpr.wait();
+                    cpr.wait(wait);
+                    if (cpr.provider == null) {
+                        Slog.wtf(TAG, "Timeout waiting for provider "
+                                + cpi.applicationInfo.packageName + "/"
+                                + cpi.applicationInfo.uid + " for provider "
+                                + name
+                                + " providerRunning=" + providerRunning);
+                        return null;
+                    }
                 } catch (InterruptedException ex) {
                 } finally {
                     if (conn != null) {
