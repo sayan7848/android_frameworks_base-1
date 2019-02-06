@@ -4264,7 +4264,7 @@ public class ShortcutService extends IShortcutService.Stub {
 
     // Injection point.
     String injectBuildFingerprint() {
-        return Build.DATE;
+        return Build.LIQUID_FINGERPRINT;
     }
 
     final void wtf(String message) {
