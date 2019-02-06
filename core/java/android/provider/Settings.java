@@ -4440,58 +4440,6 @@ public final class Settings {
          */
         public static final String BATTERY_LIGHT_ENABLED = "battery_light_enabled";
 
-        public static final String[] SETTINGS_TO_BACKUP = {
-            STAY_ON_WHILE_PLUGGED_IN,   // moved to global
-            WIFI_USE_STATIC_IP,
-            WIFI_STATIC_IP,
-            WIFI_STATIC_GATEWAY,
-            WIFI_STATIC_NETMASK,
-            WIFI_STATIC_DNS1,
-            WIFI_STATIC_DNS2,
-            BLUETOOTH_DISCOVERABILITY,
-            BLUETOOTH_DISCOVERABILITY_TIMEOUT,
-            FONT_SCALE,
-            DIM_SCREEN,
-            SCREEN_OFF_TIMEOUT,
-            SCREEN_BRIGHTNESS_MODE,
-            SCREEN_AUTO_BRIGHTNESS_ADJ,
-            SCREEN_BRIGHTNESS_FOR_VR,
-            VIBRATE_INPUT_DEVICES,
-            MODE_RINGER_STREAMS_AFFECTED,
-            TEXT_AUTO_REPLACE,
-            TEXT_AUTO_CAPS,
-            TEXT_AUTO_PUNCTUATE,
-            TEXT_SHOW_PASSWORD,
-            AUTO_TIME,                  // moved to global
-            AUTO_TIME_ZONE,             // moved to global
-            TIME_12_24,
-            DATE_FORMAT,
-            DTMF_TONE_WHEN_DIALING,
-            DTMF_TONE_TYPE_WHEN_DIALING,
-            HEARING_AID,
-            TTY_MODE,
-            MASTER_MONO,
-            SOUND_EFFECTS_ENABLED,
-            HAPTIC_FEEDBACK_ENABLED,
-            POWER_SOUNDS_ENABLED,       // moved to global
-            DOCK_SOUNDS_ENABLED,        // moved to global
-            LOCKSCREEN_SOUNDS_ENABLED,
-            SHOW_WEB_SUGGESTIONS,
-            SIP_CALL_OPTIONS,
-            SIP_RECEIVE_CALLS,
-            POINTER_SPEED,
-            VIBRATE_WHEN_RINGING,
-            RINGTONE,
-            LOCK_TO_APP_ENABLED,
-            NOTIFICATION_SOUND,
-            ACCELEROMETER_ROTATION,
-            SHOW_BATTERY_PERCENT,
-            NOTIFICATION_VIBRATION_INTENSITY,
-            HAPTIC_FEEDBACK_INTENSITY,
-            DISPLAY_COLOR_MODE,
-            NOTIFICATION_LIGHT_PULSE,
-        };
-
         public static final Map<String, Validator> VALIDATORS = new ArrayMap<>();
         static {
             VALIDATORS.put(STAY_ON_WHILE_PLUGGED_IN, STAY_ON_WHILE_PLUGGED_IN_VALIDATOR);
