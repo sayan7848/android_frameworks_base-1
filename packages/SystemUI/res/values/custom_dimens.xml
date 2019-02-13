@@ -125,4 +125,5 @@
 
     <dimen name="quick_qs_drag_handle_height">20dp</dimen>
 
+    <dimen name="battery_bar_view_height">6dp</dimen>
 </resources>
