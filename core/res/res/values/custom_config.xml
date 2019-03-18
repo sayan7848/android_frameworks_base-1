@@ -206,4 +206,7 @@
 
     <bool name="config_usesOnePlusFOD">false</bool>
 
+    <!-- Whether or not we should show vendor mismatch message -->
+    <bool name="config_show_vendor_mismatch_message">false</bool>
+
 </resources>
