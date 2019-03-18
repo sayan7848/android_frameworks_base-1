@@ -201,4 +201,7 @@
          Set to -1 to disable the proximity sensor check at all-->
     <integer name="config_flashlightProximityTimeout">300</integer>
 
+    <!-- Whether or not we should show vendor mismatch message -->
+    <bool name="config_show_vendor_mismatch_message">false</bool>
+
 </resources>
