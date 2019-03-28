@@ -325,7 +325,7 @@ public class KeyguardIndicationController {
             final boolean showWattOnCharging = Dependency.get(TunerService.class)
                     .getValue(KEYGUARD_SHOW_WATT_ON_CHARGING, 0) == 1;
             final boolean showBatteryBar = Dependency.get(TunerService.class)
-                    .getValue(KEYGUARD_SHOW_BATTERY_BAR, 1) == 1;
+                    .getValue(KEYGUARD_SHOW_BATTERY_BAR, 0) == 1;
             final boolean showBatteryBarAlways = Dependency.get(TunerService.class)
                     .getValue(KEYGUARD_SHOW_BATTERY_BAR_ALWAYS, 0) == 1;
             
