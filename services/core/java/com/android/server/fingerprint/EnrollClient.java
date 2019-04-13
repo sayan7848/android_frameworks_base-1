@@ -17,7 +17,6 @@
 package com.android.server.fingerprint;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.hardware.biometrics.fingerprint.V2_1.IBiometricsFingerprint;
 import android.hardware.fingerprint.FingerprintManager;
 import android.hardware.fingerprint.IFingerprintServiceReceiver;
@@ -27,10 +26,8 @@ import android.util.Slog;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
-import com.android.internal.statusbar.IStatusBarService;
 
 import java.util.Arrays;
-
 
 /**
  * A class to keep track of the enrollment state for a given client.
@@ -39,16 +36,12 @@ public abstract class EnrollClient extends ClientMonitor {
     private static final long MS_PER_SEC = 1000;
     private static final int ENROLLMENT_TIMEOUT_MS = 60 * 1000; // 1 minute
     private byte[] mCryptoToken;
-    private boolean mDisplayFODView;
-    private IStatusBarService mStatusBarService;
 
     public EnrollClient(Context context, long halDeviceId, IBinder token,
             IFingerprintServiceReceiver receiver, int userId, int groupId, byte [] cryptoToken,
-            boolean restricted, String owner, IStatusBarService statusBarService) {
+            boolean restricted, String owner) {
         super(context, halDeviceId, token, receiver, userId, groupId, restricted, owner);
         mCryptoToken = Arrays.copyOf(cryptoToken, cryptoToken.length);
-        mDisplayFODView = context.getResources().getBoolean(com.android.internal.R.bool.config_needCustomFODView);
-        mStatusBarService = statusBarService;
     }
 
     @Override
@@ -76,11 +69,6 @@ public abstract class EnrollClient extends ClientMonitor {
         MetricsLogger.action(getContext(), MetricsEvent.ACTION_FINGERPRINT_ENROLL);
         try {
             receiver.onEnrollResult(getHalDeviceId(), fpId, groupId, remaining);
-            if(remaining == 0 && mDisplayFODView) {
-                try {
-                    mStatusBarService.handleInDisplayFingerprintView(false, true);
-                } catch (RemoteException e) {}
-            }
             return remaining == 0;
         } catch (RemoteException e) {
             Slog.w(TAG, "Failed to notify EnrollResult:", e);
@@ -95,14 +83,6 @@ public abstract class EnrollClient extends ClientMonitor {
             Slog.w(TAG, "enroll: no fingerprint HAL!");
             return ERROR_ESRCH;
         }
-        Slog.w(TAG, "Starting enroll");
-
-        if (mDisplayFODView) {
-            try {
-                mStatusBarService.handleInDisplayFingerprintView(true, true);
-            } catch (RemoteException e) {}
-        }
-
         final int timeout = (int) (ENROLLMENT_TIMEOUT_MS / MS_PER_SEC);
         try {
             final int result = daemon.enroll(mCryptoToken, getGroupId(), timeout);
@@ -124,13 +104,6 @@ public abstract class EnrollClient extends ClientMonitor {
             Slog.w(TAG, "stopEnroll: already cancelled!");
             return 0;
         }
-
-        if (mDisplayFODView) {
-            try {
-                mStatusBarService.handleInDisplayFingerprintView(false, true);
-            } catch (RemoteException e) {}
-        }
-
         IBiometricsFingerprint daemon = getFingerprintDaemon();
         if (daemon == null) {
             Slog.w(TAG, "stopEnrollment: no fingerprint HAL!");
